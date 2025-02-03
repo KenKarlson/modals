@@ -42,7 +42,7 @@ export default {
 <style lang="scss" scoped>
 //modal animate
 .fade-enter-active, .fade-leave-active{
-  transition: opacity 1.2s;
+  transition: opacity .5s;
 }
 .fade-enter, .fade-leave-to{
   opacity: 0;
@@ -57,7 +57,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  transition: opacity 1.2s ease;
+  transition: opacity 0.5s ease;
   z-index: 998;
   background-color: rgba(50, 70, 99, 0.3);
 }
