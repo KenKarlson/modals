@@ -1,6 +1,6 @@
 <template>
-  <div class="modal__wrapper">
-    <div class="modal-content">
+  <div class="modal__wrapper" @click="$emit('close')">
+    <div class="modal-content" @click.stop="">
       <!-- header -->
       <div class="modal-header">
         <span class="modal-title"> {{ title }} </span>
@@ -22,6 +22,13 @@ export default {
       type: String,
       required: true,
     },
+  },
+  mounted(){
+    document.body.addEventListener('keyup', (e)=>{
+      if(e.keyCode === 27){
+        this.$emit('close');
+      }
+    });
   },
   computed: {},
   methods: {},
