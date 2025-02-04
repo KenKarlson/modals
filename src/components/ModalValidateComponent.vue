@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="modal__wrapper" @click="$emit('close')">
+  <div class="modal__wrapper" @click="$emit('close')">
       <div class="modal-content" @click.stop="">
         <!-- header -->
         <div class="modal-header">
@@ -38,6 +38,7 @@ export default {
   methods: {},
 };
 </script>
+
 
 <style lang="scss" scoped>
 //modal animate
