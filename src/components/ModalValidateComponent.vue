@@ -27,7 +27,10 @@ export default {
     };
   },
   valitations: {
-    name: {},
+    name: {
+      required,
+      minLenght: minLenght(4)
+    },
     email: {
       required,
       email
