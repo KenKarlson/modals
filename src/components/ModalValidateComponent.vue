@@ -1,43 +1,42 @@
 <template>
-  <transition name="fade">
-  <div class="modal__wrapper" @click="$emit('close')">
-      <div class="modal-content" @click.stop="">
-        <!-- header -->
-        <div class="modal-header">
-          <span class="modal-title"> {{ title }} </span>
-          <span class="button-close" @click="$emit('close')">&times;</span>
-        </div>
-
-        <!-- body -->
-        <div class="modal-body">
-          <slot name="bodyBox">
-            <p>Default body</p>
-          </slot>
-        </div>
-      </div>
-    </div>
-  </transition>
+  <modals-component
+  titlel="Modal title"
+  @close="$emit('close')">
+  <div slot="body">
+    <form @submit.prevent="submit">
+      <label>Name:</label>
+      <input v-bind="name">
+      <label>Email:</label>
+      <input v-bind="email">
+      <button class="btn btnSecondary" >Submit/Send</button>
+    </form>
+  </div>
+  </modals-component>
 </template>
 
 <script>
+import {required, minLenght, email} from 'vuelidate/lib/validators'
+import ModalsComponent from "./ModalsComponent.vue";
 
 export default {
-  props: {
-    title: {
-      type: String,
-      required: true,
+  components: { ModalsComponent },
+  data() {
+    return {
+      name:'',
+      email:''
+    };
+  },
+  valitations: {
+    name: {
+      required,
+      minLenght: minLenght(4)
     },
+    email: {
+      required,
+      email
+    }
   },
-  mounted() {
-    document.body.addEventListener("keyup", (e) => {
-      if (e.key === 'Escape') {
-        this.$emit("close");
-      }
-    });
-  },
-  computed: {},
-  methods: {},
-};
+}
 </script>
 
 
