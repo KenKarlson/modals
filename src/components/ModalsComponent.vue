@@ -29,7 +29,7 @@ export default {
   },
   mounted() {
     document.body.addEventListener("keyup", (e) => {
-      if (e.keyCode === 27) {
+      if (e.key === 'Escape') {
         this.$emit("close");
       }
     });

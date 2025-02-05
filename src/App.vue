@@ -37,9 +37,9 @@
             <div slot="bodyBox">
             <form action="" @submit.prevent="submitValidateForm">
               <label for="">Name:</label>
-              <input type="text" v-model="modalValidate.name">
+              <input v-model="modalValidate.name" v-bind="modalValidate.name">
               <label for="">Email:</label>
-              <input type="email" v-model="modalValidate.email">
+              <input v-model="modalValidate.email" v-bind="modalValidate.email">
               <button class="btn btnSecondary" >Submit/Send</button>
             </form>
           </div>
@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import {required, minLenght, email} from 'vuelidate/lib/validators'
+
 import ModalsComponent from "./components/ModalsComponent.vue";
 import ModalValidateComponent from "./components/ModalValidateComponent.vue";
 
@@ -70,9 +72,12 @@ export default {
       modalValidate:{
         show:false,
         name: '',
-        email: ''
+        email: '',
       }
-    };
+    }
+  },
+  validations: {
+    name:{}
   },
   methods:{
     submitSecondForm(){
@@ -88,7 +93,7 @@ export default {
       this.modalValidate.show = false;
     }
   }
-};
+}
 </script>
 <style>
 .modal-enter{
