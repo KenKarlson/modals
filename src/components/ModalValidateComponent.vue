@@ -1,6 +1,6 @@
 <template>
   <modals-component
-  titlel="Modal title"
+  title="Modal title"
   @close="$emit('close')">
   <div slot="body">
     <form @submit.prevent="submit">
@@ -27,10 +27,7 @@ export default {
     };
   },
   valitations: {
-    name: {
-      required,
-      minLenght: minLenght(4)
-    },
+    name: {},
     email: {
       required,
       email
@@ -38,8 +35,6 @@ export default {
   },
 }
 </script>
-
-
 <style lang="scss" scoped>
 //modal animate
 .fade-enter-active,
