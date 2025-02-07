@@ -6,27 +6,25 @@
     >
       Second modal show
     </button>
+
     <div slot="bodyBox">
       <form @submit.prevent="">
-        <div
-          class="form-group"
-          :class="{ 'form-group--error': $v.name.$error }"
-        >
+        <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
           <label class="form__label">Name:</label>
-          <input
-            class="form__input"
-            v-model.trim="name"
-            @input="setName($event.target.value)"
-          />
-          <div class="error" v-if="!$v.name.required">Name is required</div>
-          <div class="error" v-if="!$v.name.minLength">
-            Name must have at least {{ $v.name.$params.minLength.min }} letters.
-          </div>
-
-          <label for="">Email:</label>
-          <input v-bind="email" />
-          <button class="btn btnSecondary">Submit/Send</button>
+          <input class="form__input" v-model.trim="name" @input="setName($event.target.value)"/>
         </div>
+
+        <div class="error" v-if="!$v.name.required">Name is required</div>
+        <div class="error" v-if="!$v.name.minLength">Name must have at least {{ $v.name.$params.minLength.min }} letters.</div>
+
+        <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
+          <label class="form__label">Email:</label>
+          <input class="form__input" v-model.trim="email" />
+        </div>
+
+        <div class="error" v-if="!$v.email.required">Email is required</div>
+        <div class="error" v-if="!$v.email.email">Email is not valid</div>
+        <button class="btn btnSecondary" >Submit/Send</button>
       </form>
     </div>
   </modals-component>
@@ -66,3 +64,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.error {
+  color: orangered;
+  font-size: 12px;
+}
+</style>
