@@ -8,16 +8,25 @@
     </button>
     <div slot="bodyBox">
       <form @submit.prevent="">
-        <div class="form-item" :class="{errorInput: $v.name.$error}">
-          <label for="">Name:</label>
-          <p class="errorText" v-if="!$v.name.$required">Name is required</p>
-          <p class="errorText" v-if="!$v.name.$minLenght">Name is lenghts </p>
-          <input v-bind="name" :class="{error: $v.name.$error}" @change="$v.name.$touch()" placeholder=""/>
+        <div
+          class="form-group"
+          :class="{ 'form-group--error': $v.name.$error }"
+        >
+          <label class="form__label">Name:</label>
+          <input
+            class="form__input"
+            v-model.trim="name"
+            @input="setName($event.target.value)"
+          />
+          <div class="error" v-if="!$v.name.required">Name is required</div>
+          <div class="error" v-if="!$v.name.minLength">
+            Name must have at least {{ $v.name.$params.minLength.min }} letters.
+          </div>
+
+          <label for="">Email:</label>
+          <input v-bind="email" />
+          <button class="btn btnSecondary">Submit/Send</button>
         </div>
-        
-        <label for="">Email:</label>
-        <input v-bind="email" />
-        <button class="btn btnSecondary">Submit/Send</button>
       </form>
     </div>
   </modals-component>
@@ -43,6 +52,16 @@ export default {
     email: {
       required,
       email,
+    },
+  },
+  methods: {
+    setName(value) {
+      this.name = value;
+      this.$v.name.$touch();
+    },
+    setEmail(value) {
+      this.email = value;
+      this.$v.email.$touch();
     },
   },
 };
