@@ -11,21 +11,24 @@
       <form @submit.prevent="">
         <div class="form-group" :class="{ errorInput: $v.name.$error }">
           <label class="form__label">Name:</label>
-          <input class="form__input" v-model.trim="name" @input="setName($event.target.value)"/>
-
           <div class="error" v-if="!$v.name.required">Name is required</div>
           <div class="error" v-if="!$v.name.minLength">Name must have at least {{ $v.name.$params.minLength.min }} letters.</div>
+
+          <input class="form__input" v-model.trim="name" @input="setName($event.target.value)"/>
+
         </div>
 
         <div class="form-group" :class="{ errorInput: $v.email.$error }">
           <label class="form__label">Email:</label>
-          <input class="form__input" v-model.trim="email" @input="setEmail($event.target.value)"/>
 
           <div class="error" v-if="!$v.email.required">Email is required</div>
           <div class="error" v-if="!$v.email.email">Email is not valid</div>
+
+          <input class="form__input" v-model.trim="email" @input="setEmail($event.target.value)"/>
+
         </div>
 
-        <button class="btn btnSecondary">Submit/Send</button>
+        <button class="btn btnSecondary" @click="sendForm">Submit/Send</button>
       </form>
     </div>
   </modals-component>
@@ -62,6 +65,11 @@ export default {
       this.email = value;
       this.$v.email.$touch();
     },
+    sendForm() {
+      this.name = "";
+      this.email = "";
+      console.log('click');
+    }
   },
 };
 </script>
@@ -78,13 +86,6 @@ export default {
     display: block;
     &.error{
       display: block;
-    }
-  }
-}
-.form-group {
-  &.errorInput {
-    &.error {
-      color: aqua;
     }
   }
 }
