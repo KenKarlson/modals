@@ -1,4 +1,4 @@
-# modals
+# Modals traning project
 
 ## Project setup
 ```
