@@ -1,21 +1,19 @@
 <template>
   <modals-component title="Modal validate form comp" @close="$emit('close')">
-    <button
-      class="btn btnPrimary"
-      @click="modalSecond.show = !modalSecond.show"
-    >
-      Second modal show
-    </button>
-
     <div slot="bodyBox">
-      <form @submit.prevent="">
+      <form @submit.prevent="onSubmit">
         <div class="form-group" :class="{ errorInput: $v.name.$error }">
           <label class="form__label">Name:</label>
           <div class="error" v-if="!$v.name.required">Name is required</div>
-          <div class="error" v-if="!$v.name.minLength">Name must have at least {{ $v.name.$params.minLength.min }} letters.</div>
+          <div class="error" v-if="!$v.name.minLength">
+            Name must have at least {{ $v.name.$params.minLength.min }} letters.
+          </div>
 
-          <input class="form__input" v-model.trim="name" @input="setName($event.target.value)"/>
-
+          <input
+            class="form__input"
+            v-model.trim="name"
+            @input="setName($event.target.value)"
+          />
         </div>
 
         <div class="form-group" :class="{ errorInput: $v.email.$error }">
@@ -24,11 +22,14 @@
           <div class="error" v-if="!$v.email.required">Email is required</div>
           <div class="error" v-if="!$v.email.email">Email is not valid</div>
 
-          <input class="form__input" v-model.trim="email" @input="setEmail($event.target.value)"/>
-
+          <input
+            class="form__input"
+            v-model.trim="email"
+            @input="setEmail($event.target.value)"
+          />
         </div>
 
-        <button class="btn btnSecondary" @click="sendForm">Submit/Send</button>
+        <button class="btn btnSecondary">Submit/Send</button>
       </form>
     </div>
   </modals-component>
@@ -68,8 +69,22 @@ export default {
     sendForm() {
       this.name = "";
       this.email = "";
-      console.log('click');
-    }
+      console.log("click");
+    },
+    onSubmit() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        const user = {
+          name: this.name,
+          email: this.email,
+        };
+        console.log(user);
+        this.name = "";
+        this.email = "";
+        this.$v.$reset();
+        this.$emit('close');
+      }
+    },
   },
 };
 </script>
@@ -84,14 +99,12 @@ export default {
   &.errorInput .form__input {
     border: 1px solid orangered;
     display: block;
-    &.error{
+    &.error {
       display: block;
     }
   }
 }
 .errorInput .error {
-      display: block;
-    }
-
-
+  display: block;
+}
 </style>
